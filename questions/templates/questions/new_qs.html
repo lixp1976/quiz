@@ -1,0 +1,15 @@
+{% extends 'base_page.html' %}
+
+{% block body %}
+    <form method="POST" action="{% url 'url_add_qs' %}">{% csrf_token %}
+        <label for="title">
+            Название:
+        </label>
+        <input type="text" id="title" name="title" value="" />
+        <label for="max_time">
+            Время, отведенное на тест:
+        </label>
+        <input type="text" name="max_time" id="max_time" value="" />
+        <input type="submit" value="Добавить" />
+    </form>
+{% endblock %}

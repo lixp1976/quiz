@@ -1,0 +1,12 @@
+{% extends 'base_page.html' %}
+
+{% block body %}
+    <ul>
+        <li>
+            <a href="{% url 'url_list_qs' %}">Список тестов</a>
+        </li>
+        <li>
+            <a href="{% url 'url_logout' %}">Выход</a>
+        </li>
+    </ul>
+{% endblock %}

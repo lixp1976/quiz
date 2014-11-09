@@ -1,0 +1,32 @@
+{% extends 'skel.html' %}
+
+{% block body %}
+<form method="POST" action="{% url 'url_login' %}">
+{% csrf_token %}
+
+    <table style="width: 100%; margin-top: 10px;">
+        <tr>
+            <td style="text-align: right">Пользователь:</td>
+            <td>
+                <input type="text" class="form-control small" name="username" />
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">Пароль:</td>
+            <td>
+                <input type="password" class="form-control small" name="password" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <p align="center">
+                <input class="btn btn-primary btn-sm" type="submit" value="Вход" />
+                </p>
+            </td>
+        </tr>
+    </table>
+
+    <input type="hidden" name="next" value="/" />
+
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}MSaT (MANGO Shop assistant Testing){% endblock %}</title>
+    {% block include_css %}{% endblock %}
+    {% block include_js %}{% endblock %}
+</head>
+<body>
+    {% block css %}{% endblock %}
+    {% block js %}{% endblock %}
+
+    {% block body %}{% endblock %}
+</body>
+</html>
