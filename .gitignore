@@ -56,4 +56,5 @@ docs/_build/
 target/
 
 db.sqlite3.dev
-static/
+static
+!sources/static
