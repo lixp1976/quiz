@@ -3,7 +3,7 @@ from re import compile
 
 __author__ = 'djud'
 
-from sources import settings
+import settings
 
 EXEMPT_URLS = [
     compile(settings.LOGIN_URL.lstrip('/')),
