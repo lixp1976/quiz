@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 from os.path import dirname
 PROJECT_DIR = lambda x: os.path.realpath(os.path.join(dirname(dirname(__file__)), x))
-LOGS_DIR = lambda x: os.path.realpath(os.path.join(PROJECT_DIR('logs'), x))
+LOGS_DIR = lambda x: os.path.realpath(os.path.join(PROJECT_DIR('../logs'), x))
 
 LOGIN_URL = '/login/'
 
@@ -61,7 +61,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'urls'
 
-WSGI_APPLICATION = 'mango_testing.wsgi.application'
+WSGI_APPLICATION = 'sources.wsgi.application'
 
 
 # Database
