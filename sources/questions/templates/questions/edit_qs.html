@@ -1,27 +1,18 @@
 {% extends 'base_page.html' %}
 
-{% block body %}
-    <form method="POST" action="{% url 'url_save_qs' %}">{% csrf_token %}
-        <label for="title">
-            Название:
-        </label>
-        <input type="text" id="title" name="title" value="{{ qs.title }}" />
-        <label for="max_time">
-            Время, отведенное на тест:
-        </label>
-        <input type="text" name="max_time" id="max_time" value="{{ qs.max_time }}" />
+{% block title %}Новый тест{% endblock %}
 
-        <label for="questions">
-            Вопросы
-        </label>
-        <a href="">Добавить</a>
-        <ul id="questions">
-            {% for q in qs.question_set %}
-                <li>
-                    {{ q.html_text }}
-                </li>
-            {% endfor %}
-        </ul>
-        <input type="submit" value="Добавить" />
-    </form>
+{% block body %}
+
+<form method="POST" action="{% url 'url_save_qs' %}">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="hidden" name="pk" value="{{ form.instance.pk|stringformat:'%d' }}" />
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+    <input class="btn btn-primary btn-sm" type="submit" value="Сохранить" />
+</form>
+
 {% endblock %}

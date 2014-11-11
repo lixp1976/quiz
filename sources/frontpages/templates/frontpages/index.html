@@ -1,9 +1,58 @@
 {% extends 'base_page.html' %}
 
+{% block css %}
+    <style type="text/css">
+        a.smallLink {
+            font-size: x-small;
+            color: #0000ff;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+        function deleteQuestionSet(url) {
+            if (confirm('Удалить безвозвратно?')) {
+                window.open(url);
+            }
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
 
     {% if user.is_superuser %}
-        <a href="#">Добавить тест</a>
+        <a href="{% url 'url_new_qs' %}">Добавить тест</a>
     {% endif %}
+
+    {% for form in formset %}
+    <div class="panel panel-default" style="margin: 20px">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Тест "{{ form.instance.title }}"
+                {% if user.is_superuser %}
+                    <a class="smallLink"
+                       href="{% url 'url_edit_qs' form.instance.pk %}">[Изменить]</a>
+                    <a class="smallLink"
+                       href="javascript:deleteQuestionSet('{% url 'url_remove_qs' form.instance.pk %}')">[Удалить]</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="smallLink" href="#">[Редактировать вопросы]</a>
+                {% endif %}
+            </h3>
+        </div>
+        <div class="panel-body">
+            {% if form.instance.description %}
+            <b>Описание:</b><br/>
+            {{ form.instance.description }}
+            {% endif %}
+
+            <br/>
+            <br/>
+            <b>Время на прохождение:&nbsp;</b>{{ form.instance.max_time }}
+
+        </div>
+    </div>
+    {% endfor %}
+
 
 {% endblock %}
