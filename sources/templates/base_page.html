@@ -1,1 +1,22 @@
 {% extends 'skel.html' %}
+
+{% block header %}
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            {% comment %}
+            <a class="navbar-brand" href="#">Brand</a>
+            {% endcomment %}
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'url_logout' %}">Выход</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% endblock %}
