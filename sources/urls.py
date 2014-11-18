@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'', include('frontpages.urls')),
     url(r'', include('accounts.urls')),
     url(r'', include('questions.urls')),
+    url(r'', include('testing.urls')),
 )

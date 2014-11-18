@@ -56,6 +56,10 @@
             <br/>
             <b>Время на прохождение:&nbsp;</b>{{ form.instance.max_time }}
 
+            <br />
+            <br />
+            <a href="{% url 'url_start_testing' form.instance.id %}"
+               style="font-weight: bold;">> Начать тест <</a>
         </div>
     </div>
     {% endfor %}

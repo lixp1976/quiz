@@ -1,10 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends 'skel.html' %}
 
-</body>
-</html>
+{% block js %}
+    <script type="text/javascript">
+        function sendForm(formId) {
+            $('#' + formId).submit();
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Вопрос {{ testing.current_question.index }} из
+            {{ request.session.total_questions }}
+        </div>
+        <div class="panel-body">
+            <p class="text-left">{{ question.html_text }}</p>
+
+            {% if question.image %}
+                <img src="{{ question.image }}" />
+            {% endif %}
+
+            <form id="answerForm" method="POST"
+                  action="{% url 'url_answer' %}">{% csrf_token %}
+                <ul class="list-unstyled" style="margin-bottom: 20px;">
+                {% for answer in variants %}
+                    <li>
+                    {% comment %}
+                    На самом деле это подсказка, если показывается чекбокс,
+                    значит правильных вариантов больше чем 1,
+                    честнее будет всегда показывать чекбоксы
+                    {% endcomment %}
+                    <input type="checkbox" value="{{ answer.id }}" name="answer_id" />
+                    {{ answer.html_text }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </form>
+
+            <p>
+                <small>Отмечайте все варианты,
+                    которые считаете правильными</small>
+            </p>
+
+            <div class="col-md-1">
+                <form id="skipForm" method="POST"
+                      action="{% url 'url_skip_question' %}">
+                    {% csrf_token %}
+                    <input type="button" class="btn btn-default"
+                           onclick="javascript:sendForm('skipForm')"
+                           value="Пропустить" />
+                </form>
+            </div>
+            <div class="col-md-1" style="text-align: right">
+                <input type="button" class="btn btn-success"
+                       onclick="javascript:sendForm('answerForm')"
+                       value="Ответить" />
+
+            </div>
+        </div>
+    </div>
+
+    <form id="finishForm" method="POST" action="{% url 'url_finish' %}">
+    {% csrf_token %}
+    </form>
+    <p style="text-align: center">
+        <input type="button" onclick="javascript:sendForm('finishForm')"
+               class="btn btn-danger" value="Завершить тест" />
+    </p>
+{% endblock %}

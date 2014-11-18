@@ -30,6 +30,10 @@ class Question(models.Model):
     question_set = models.ForeignKey(QuestionSet, null=False, blank=False)
     updated = models.DateTimeField(null=True, blank=False, default=None)
 
+    @property
+    def many_rights(self):
+        return len([x for x in self.answer_set.all() if x.is_right]) > 1
+
 
 class Answer(models.Model):
     html_text = models.TextField(default='')

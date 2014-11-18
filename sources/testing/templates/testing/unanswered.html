@@ -1,0 +1,39 @@
+{% extends 'skel.html' %}
+
+{% block js %}
+    <script type="text/javascript">
+        function sendForm(formId) {
+            $('#' + formId).submit();
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Вы не ответили на некоторые вопросы
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled">
+        {% for question in questions %}
+            <li>
+            {{ question.index }}.&nbsp;{{ question.question.html_text }}
+            <a href="{% url 'url_go_question' question.id %}"
+                    style="font-size: x-small">Вернуться к
+                этому вопросу</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<form id="finishForm" method="POST" action="{% url 'url_finish' %}">
+{% csrf_token %}
+</form>
+<p style="text-align: center">
+    <input type="button" onclick="javascript:sendForm('finishForm')"
+           class="btn btn-danger" value="Завершить тест" />
+</p>
+
+{% endblock %}
