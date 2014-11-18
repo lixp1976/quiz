@@ -11,5 +11,21 @@ urlpatterns = patterns('questions.views',
     url('^question_set/(?P<pk>\d+)/remove/$', 'remove_question_set',
         name='url_remove_qs'),
 
-    url('^question/new/$', 'new_question', name='url_new_question'),
+    url('^question/list/(?P<qs_id>\d+)/$', 'list_questions',
+        name='url_list_question'),
+
+
+    url('^question/edit/(?P<qid>\d+)/$', 'edit_question',
+        name='url_edit_question'),
+    url('^question/new/(?P<qs_id>\d+)/$', 'new_question',
+        name='url_new_question'),
+    url('^question/save/(?P<qid>\d+)/$', 'save_question',
+        name='url_save_question'),
+    url('^question/remove/(?P<qid>\d+)/$', 'remove_question',
+        name='url_remove_question'),
+
+
+    url('^answer/add/(?P<qid>\d+)/$', 'add_answer', name='url_add_answer'),
+    url('^answer/delete/(?P<id>\d+)/$', 'remove_answer',
+        name='url_remove_answer'),
 )

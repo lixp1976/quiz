@@ -9,6 +9,19 @@
     {% endif %}
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Список тестов</a></li>
+  <li class="active">
+    {% if form.instance.pk %}
+        Тест "{{ form.instance.title }}"
+    {% else %}
+        Новый тест
+    {% endif %}
+  </li>
+</ol>
+{% endblock %}
+
 {% block body %}
 
 <form method="POST" action="{% url 'url_save_qs' %}">{% csrf_token %}

@@ -1,0 +1,10 @@
+
+
+<div class="panel panel-default" id="{% now "d_m_Y_H_i_s_u" %}">
+    <div class="panel-body">
+        {{ form }}
+    </div>
+    <input type="button" class="btn btn-danger" id="btn{% now "d_m_Y_H_i_s_u" %}"
+           onclick="javascript:deleteNodeById($('#'+this.id).parent()[0].id)"
+           value="Удалить" />
+</div>

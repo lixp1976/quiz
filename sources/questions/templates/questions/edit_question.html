@@ -1,0 +1,62 @@
+{% extends 'base_page.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Список тестов</a></li>
+  <li><a href="{% url 'url_edit_qs' qs.pk %}">Тест "{{ qs.title }}"</a></li>
+  <li><a href="{% url 'url_list_question' qs.pk %}">Вопросы</a></li>
+  <li class="active">
+      {% if form.instance.pk %}
+          Вопрос {{ form.instance.pk }}
+      {% else %}
+          Новый вопрос
+      {% endif %}
+  </li>
+</ol>
+{% endblock %}
+
+{% block body %}
+
+<form method="POST" action="{% url 'url_save_question' form.instance.id %}">
+{% csrf_token %}
+
+    <table>
+    {{ form.as_table }}
+    </table>
+
+    <div class="panel panel-default" id='answersPanel' style="margin: 20px">
+        <div class="panel-heading">
+            <h3 class="panel-title">Варианты ответов</h3>
+        </div>
+        <div class="panel-body">
+            <a href="{% url 'url_add_answer' form.instance.id %}">
+                Добавить вариант
+            </a>
+            <table class="table">
+            {% for answer in answers %}
+                <tr>
+                    <td>
+                        {{ answer.html_text }}
+                        {% for hidden_field in answer.hidden_fields %}
+                            {{ hidden_field }}
+                        {% endfor %}
+                    </td>
+                    <td>{{ answer.is_right }}</td>
+                    <td>
+                        <a href="{% url 'url_remove_answer' answer.instance.id %}"
+                           class="btn btn-danger">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            {{ answers.management_form }}
+        </div>
+    </div>
+
+    <input type="hidden" name="qs_id" value="{{ qs.pk }}" />
+
+    <input type="submit" value="Сохранить" />
+
+</form>
+
+{% endblock %}

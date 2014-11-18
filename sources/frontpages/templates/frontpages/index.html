@@ -19,6 +19,12 @@
     </script>
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li class="active">Список тестов</li>
+</ol>
+{% endblock %}
+
 {% block body %}
 
     {% if user.is_superuser %}
@@ -36,7 +42,7 @@
                     <a class="smallLink"
                        href="javascript:deleteQuestionSet('{% url 'url_remove_qs' form.instance.pk %}')">[Удалить]</a>
                     &nbsp;&nbsp;&nbsp;
-                    <a class="smallLink" href="#">[Редактировать вопросы]</a>
+                    <a class="smallLink" href="{% url 'url_list_question' form.instance.pk %}">[Редактировать вопросы]</a>
                 {% endif %}
             </h3>
         </div>

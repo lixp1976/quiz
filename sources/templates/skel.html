@@ -19,7 +19,14 @@
     {% block css %}{% endblock %}
     {% block js %}{% endblock %}
 
+    <script type="text/javascript">
+        function deleteNodeById(elementId) {
+            $('#'+elementId).remove();
+        }
+    </script>
+
     {% block header %}{% endblock %}
+    {% block breadcrumbs %}{% endblock %}
     {% block body %}{% endblock %}
 </body>
 </html>

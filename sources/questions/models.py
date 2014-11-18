@@ -24,19 +24,16 @@ class MarkSettings(models.Model):
     question_set = models.ForeignKey(QuestionSet)
 
 
-class QuestionType(models.Model):
-    name = models.CharField(max_length=128)
-
-
 class Question(models.Model):
-    html_text = models.TextField()
-    image = models.ImageField()
+    html_text = models.TextField(default='')
+    image = models.ImageField(default=None, null=True)
     question_set = models.ForeignKey(QuestionSet, null=False, blank=False)
-    question_type = models.ForeignKey(QuestionType)
+    updated = models.DateTimeField(null=True, blank=False, default=None)
 
 
 class Answer(models.Model):
-    html_text = models.TextField()
-    image = models.ImageField()
+    html_text = models.TextField(default='')
+    image = models.ImageField(default=None, null=True)
     is_right = models.BooleanField(default=False)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, null=False, blank=False)
+    updated = models.DateTimeField(null=True, blank=False, default=None)

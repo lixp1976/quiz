@@ -1,5 +1,5 @@
 from django.forms.models import modelformset_factory
-from questions.models import QuestionSet
+from questions.models import QuestionSet, Question, Answer
 
 __author__ = 'djud'
 
@@ -23,3 +23,36 @@ class QuestionSetForm(forms.ModelForm):
 
 
 QuestionSetFormSet = modelformset_factory(QuestionSet, QuestionSetForm, extra=0)
+
+
+class QuestionForm(forms.ModelForm):
+
+    class Meta():
+        model = Question
+        fields = ['html_text', 'image']
+
+    html_text = forms.CharField(label='Текст вопроса',
+                                widget=forms.Textarea(
+                                    {'cols': '50', 'rows': '4'}
+                                ))
+    image = forms.ImageField(required=False)
+
+QuestionFormSet = modelformset_factory(Question, QuestionForm, extra=0)
+
+
+class AnswerForm(forms.ModelForm):
+
+    class Meta():
+        model = Answer
+        fields = ['html_text', 'image', 'is_right']
+
+    html_text = forms.CharField(label='Текст ответа',
+                                widget=forms.Textarea(
+                                    {'cols': '50', 'rows': '4'}
+                                ))
+    image = forms.ImageField(label='Картинка', required=False)
+    is_right = forms.BooleanField(label='Это правильный вариант',
+                                  required=False)
+
+
+AnswerFormSet = modelformset_factory(Answer, AnswerForm, extra=0)

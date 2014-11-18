@@ -1,8 +1,9 @@
 import socket
+import re
 
 hostname = socket.gethostname()
 
-if hostname in ('road404-dorofeev.local',):
+if re.match(r'^road404\-dorofeev(\-)?(\d+)?\.local$', hostname):
     from config.dev import *
 elif hostname in ('live'):
     from config.live import *

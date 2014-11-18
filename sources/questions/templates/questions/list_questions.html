@@ -1,0 +1,32 @@
+{% extends 'base_page.html' %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Список тестов</a></li>
+  <li><a href="{% url 'url_edit_qs' qs.id %}">Тест "{{ qs.title }}"</a></li>
+  <li class="active">Вопросы</li>
+</ol>
+{% endblock %}
+
+{% block body %}
+    <a href="{% url 'url_new_question' qs.id %}">Добавить вопрос</a>
+
+    <table class="table">
+    {% for question in questions %}
+        <tr>
+            <td>
+                <a href="{% url 'url_edit_question' question.id %}"
+                   style="font-size: x-small;">
+                    <b>[[Редактировать]]</b>
+                </a>
+            </td>
+            <td>{{ question.html_text }}</td>
+            <td>{{ question.updated }}</td>
+            <td>
+                <a href="{% url 'url_remove_question' question.id %}"
+                   class="btn btn-danger">Удалить</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
