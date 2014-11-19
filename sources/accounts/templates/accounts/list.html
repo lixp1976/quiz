@@ -1,0 +1,11 @@
+{% extends 'base_page.html' %}
+
+{% block body %}
+<table>
+{% for account in accounts %}
+    <tr>
+        <td>{{ account.username }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}
