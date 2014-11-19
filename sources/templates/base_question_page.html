@@ -1,0 +1,42 @@
+{% extends "skel.html" %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            setTime({{ seconds_left }});
+            setInterval(onTick, 1000);
+        });
+
+        function onTick() {
+            var time = $('#time').text().split(':');
+            var seconds = parseInt(time[0]) * 60 + parseInt(time[1]);
+            seconds -= 1;
+            setTime(seconds);
+        }
+
+        function setTime(seconds) {
+            if (parseInt(seconds) <= 0) {
+                sendForm('finishForm');
+            }
+            var min = Math.floor(seconds / 60);
+            var sec = seconds - min * 60;
+            if (min <= 0) {
+                $('#time').css('color', 'red');
+            }
+            $('#time').text(pad(min, 2) + ':' + pad(sec, 2));
+        }
+
+        function sendForm(formId) {
+            $('#' + formId).submit();
+        }
+
+        function pad(n, width, z) {
+            z = z || '0';
+            n = n + '';
+            return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+{% endblock %}

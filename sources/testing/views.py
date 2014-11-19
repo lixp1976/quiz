@@ -4,6 +4,7 @@ from django.template import RequestContext
 from questions.models import QuestionSet, Answer
 import random
 from testing.models import TestingQuestion, Testing, TestingLog
+from django.utils import timezone
 
 __author__ = 'djud'
 
@@ -13,7 +14,7 @@ def start_testing(request, qs_id):
     testing = Testing.objects.create(
         user=request.user,
         question_set=question_set,
-        deadline=datetime.datetime.now() +
+        deadline=timezone.now() +
                  datetime.timedelta(0, question_set.max_time),
         current_question=None,
     )
@@ -93,6 +94,8 @@ def show_question(request):
         'testing': testing,
         'question': testing.current_question.question,
         'variants': testing.current_question.question.answer_set.all(),
+        'seconds_left': int(testing.deadline.timestamp()) -
+                        int(timezone.now().timestamp())
     }
     return render_to_response('testing/question.html', context,
                               context_instance=RequestContext(request))
@@ -102,7 +105,9 @@ def show_unanswered_questions(request):
     testing_id = request.session['testing_id']
     testing = Testing.objects.get(id=testing_id)
     context = {
-        'questions': testing.unanswered_questions
+        'questions': testing.unanswered_questions,
+        'seconds_left': int(testing.deadline.timestamp()) -
+                        int(timezone.now().timestamp())
     }
     return render_to_response('testing/unanswered.html', context,
                               context_instance=RequestContext(request))
@@ -121,7 +126,7 @@ def finish(request):
     del(request.session['testing_id'])
     del(request.session['total_questions'])
     testing = Testing.objects.get(id=testing_id)
-    testing.finished = datetime.datetime.now()
+    testing.finished = timezone.now()
     context = {
         'testing': testing
     }

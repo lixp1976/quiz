@@ -1,19 +1,12 @@
-{% extends 'skel.html' %}
-
-{% block js %}
-    <script type="text/javascript">
-        function sendForm(formId) {
-            $('#' + formId).submit();
-        }
-    </script>
-{% endblock %}
+{% extends 'base_question_page.html' %}
 
 {% block body %}
 
     <div class="panel panel-default">
         <div class="panel-heading">
             Вопрос {{ testing.current_question.index }} из
-            {{ request.session.total_questions }}
+            {{ request.session.total_questions }}.&nbsp;
+            Осталось:&nbsp;<label id="time"></label>
         </div>
         <div class="panel-body">
             <p class="text-left">{{ question.html_text }}</p>
