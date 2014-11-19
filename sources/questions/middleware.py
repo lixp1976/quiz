@@ -1,10 +1,9 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils import timezone
-from frontpages.views import index
 from testing.models import Testing
 from testing.views import finish, show_question, answer, skip_question, \
-    show_unanswered_questions, go_to_question
+    show_unanswered_questions, go_to_question, show_summary
 
 __author__ = 'djud'
 
@@ -18,7 +17,7 @@ class CheckTimeMiddleware():
         testing = Testing.objects.get(id=testing_id)
         if timezone.now() >= testing.deadline:
             finish(request)
-            return redirect(index)
+            return redirect(show_summary, testing_id)
         return None
 
 

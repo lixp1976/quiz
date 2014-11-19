@@ -12,4 +12,5 @@ urlpatterns = patterns('testing.views',
     url('^question/(?P<question_id>\d+)/$', 'go_to_question',
         name='url_go_question'),
     url('^unanswered/$', 'show_unanswered_questions'),
+    url('^summary/(?P<testing_id>\d+)/$', 'show_summary', name='url_summary'),
 )

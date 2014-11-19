@@ -129,6 +129,11 @@ def finish(request):
     del(request.session['total_questions'])
     testing = Testing.objects.get(id=testing_id)
     testing.finished = timezone.now()
+    return redirect(show_summary, testing_id)
+
+
+def show_summary(request, testing_id):
+    testing = Testing.objects.get(id=testing_id)
     context = {
         'testing': testing
     }

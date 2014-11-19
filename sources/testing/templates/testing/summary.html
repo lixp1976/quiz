@@ -1,5 +1,17 @@
 {% extends 'skel.html' %}
 
 {% block body %}
-    Вы закончили тест
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Тестирование завершено
+    </div>
+    <div class="panel-body">
+        <form method="GET" action="{% url 'url_index' %}">
+        <p style="text-align: center">
+        <input type="submit" class="btn btn-success" value="Oк"
+               style="width: 100px"/>
+        </p>
+        </form>
+    </div>
+</div>
 {% endblock %}
