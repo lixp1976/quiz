@@ -17,7 +17,9 @@ class TestingQuestion(models.Model):
 
     @property
     def is_last(self):
-        return self.next is None
+        last = TestingQuestion.objects.filter(
+            testing=self.testing, answered=False).order_by('-index')[:1].get()
+        return self.id == last.id
 
 
 class Testing(models.Model):

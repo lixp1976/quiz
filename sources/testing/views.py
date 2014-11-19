@@ -72,10 +72,11 @@ def answer(request):
         answer=answer,
     )
 
+    is_last = testing.current_question.is_last
     testing.current_question.answered = True
     testing.current_question.save()
 
-    if testing.current_question.is_last and testing.unanswered_questions:
+    if is_last and testing.unanswered_questions:
         return redirect(show_unanswered_questions)
 
     testing.next_question()
