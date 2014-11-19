@@ -69,7 +69,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'accounts.middleware.login_required.LoginRequiredMiddleware',
-    'questions.middleware.check_time.CheckTimeMiddleware',
+    'questions.middleware.CheckTimeMiddleware',
+    'questions.middleware.QuestionRedirectMiddleware',
 )
 
 ROOT_URLCONF = 'urls'

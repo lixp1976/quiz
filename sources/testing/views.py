@@ -10,6 +10,8 @@ __author__ = 'djud'
 
 
 def start_testing(request, qs_id):
+    if request.session.get('testing_id'):
+        return redirect(show_question)
     question_set = QuestionSet.objects.get(id=qs_id)
     testing = Testing.objects.create(
         user=request.user,

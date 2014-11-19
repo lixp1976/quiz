@@ -58,8 +58,14 @@
 
             <br />
             <br />
-            <a href="{% url 'url_start_testing' form.instance.id %}"
-               style="font-weight: bold;">> Начать тест <</a>
+            {% if request.session.testing_id %}
+                У вас есть незавершенный тест.
+                <a href="{% url 'url_show_question' %}"
+                   style="font-weight: bold;">> Возобновить тест <</a>
+            {% else %}
+                <a href="{% url 'url_start_testing' form.instance.id %}"
+                   style="font-weight: bold;">> Начать тест <</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
