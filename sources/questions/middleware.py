@@ -3,7 +3,8 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from frontpages.views import index
 from testing.models import Testing
-from testing.views import finish, show_question
+from testing.views import finish, show_question, answer, skip_question, \
+    show_unanswered_questions, go_to_question
 
 __author__ = 'djud'
 
@@ -24,8 +25,19 @@ class CheckTimeMiddleware():
 class QuestionRedirectMiddleware():
 
     def process_request(self, request):
-        if request.path in [reverse(show_question), reverse(finish)]:
+        if request.path in [
+            reverse(show_question),
+            reverse(finish),
+            reverse(answer),
+            reverse(skip_question),
+            reverse(show_unanswered_questions)
+        ]:
             return None
         if request.session.get('testing_id'):
+            testing = Testing.objects.get(id=request.session.get(
+                'testing_id'))
+            if request.path == reverse(go_to_question,
+                                       testing.current_question.id):
+                return None
             return redirect(show_question)
         return None
