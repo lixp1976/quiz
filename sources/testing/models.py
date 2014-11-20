@@ -1,3 +1,4 @@
+# coding:utf8
 from django.contrib.auth.models import User
 from questions.models import QuestionSet, Answer, Question
 

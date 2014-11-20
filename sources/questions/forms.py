@@ -1,3 +1,4 @@
+# coding:utf8
 from django.forms.models import modelformset_factory
 from questions.models import QuestionSet, Question, Answer
 
