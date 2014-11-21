@@ -34,3 +34,22 @@ def list_accounts(request):
 def delete_account(request, account_id):
     User.objects.get(id=account_id).delete()
     return redirect(list_accounts)
+
+
+def add_account(request):
+    username = request.POST['username']
+    first_name = request.POST['first_name']
+    last_name = request.POST['last_name']
+    email = request.POST['email']
+    password = request.POST['password']
+    is_superuser = int(request.POST.get('is_superuser', 0)) == 1
+    is_active = int(request.POST.get('is_active', 0)) == 1
+    if is_superuser:
+        new_user = User.objects.create_superuser(username, email, password)
+    else:
+        new_user = User.objects.create_user(username, email, password)
+    new_user.is_active = is_active
+    new_user.first_name = first_name
+    new_user.last_name = last_name
+    new_user.save()
+    return redirect(list_accounts)

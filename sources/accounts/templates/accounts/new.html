@@ -1,0 +1,87 @@
+<!-- Modal -->
+<script type="text/javascript">
+    $(function () {
+        $("#newHostModal").on('shown.bs.modal', function() {
+            $('#new_username').val('');
+            $('#new_first_name').val('');
+            $('#new_last_name').val('');
+            $('#new_email').val('');
+            $('#new_password').val('');
+            $('#new_password2').val('');
+            $('#new_username').focus();
+        });
+    });
+</script>
+
+<form method="POST" id="new_account_form" name="new_account_form" role="form"
+      action="{% url 'url_add_account' %}">{% csrf_token %}
+<div class="modal" id="new_account_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Новый аккаунт</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="new_username">Логин:</label>
+            <input type="text" class="form-control" id="new_username"
+                   required minlength="2" name="username"
+                   placeholder="Введите логин">
+          </div>
+          <div class="form-group">
+            <label for="new_first_name">Имя:</label>
+            <input type="text" class="form-control" id="new_first_name"
+                   required minlength="2" name="first_name"
+                   placeholder="Имя">
+          </div>
+          <div class="form-group">
+            <label for="new_last_name">Фамилия:</label>
+            <input type="text" class="form-control" id="new_last_name"
+                   required minlength="2" name="last_name"
+                   placeholder="Фамилия">
+          </div>
+          <div class="form-group">
+            <label for="new_email">Email:</label>
+            <input type="text" class="form-control" id="new_email"
+                   required minlength="2" name="email"
+                   placeholder="E-mail">
+          </div>
+
+          <div class="form-group">
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" name="is_superuser" value="1" /> Админ
+                  </label>
+              </div>
+          </div>
+
+          <div class="form-group">
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" name="is_active" value="1" /> Активен
+                  </label>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="new_password">Пароль:</label>
+            <input type="password" class="form-control" id="new_password"
+                   required name="password"
+                   placeholder="Пароль">
+          </div>
+          <div class="form-group">
+            <label for="new_password2">Пароль (ещё раз):</label>
+            <input type="password" class="form-control" id="new_password2"
+                   required name="password2"
+                   placeholder="Пароль ещё раз">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pretty" data-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-primary pretty">Создать</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</form>

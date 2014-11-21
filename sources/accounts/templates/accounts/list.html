@@ -1,22 +1,33 @@
 {% extends 'base_page.html' %}
 
 {% block body %}
-<table>
-    <tr>
-        <th>Логин</th>
-        <th></th>
-    </tr>
-{% for account in accounts %}
-    <tr>
-        <td>{{ account.username }}</td>
-        <td>
-            <form method="POST"
-                  action="{% url 'url_delete_account' account.id %}">
-                {% csrf_token %}
-                <input type="submit" class="btn btn-danger" value="Удалить" />
-            </form>
-        </td>
-    </tr>
-{% endfor %}
+<button class="btn btn-primary pretty" data-toggle="modal" data-target="#new_account_modal">Добавить</button>
+{% include "accounts/new.html" %}
+
+<table class="DataTable">
+    <thead>
+        <tr>
+            <th style="width: 180px;">Дата регистрации</th>
+            <th style="width: 180px;">Последний логин</th>
+            <th style="width: 200px;">Логин</th>
+            <th style="width: 200px;">Email</th>
+            <th>Имя</th>
+            <th style="width: 100px;">Админ</th>
+            <th style="width: 100px;">Активен</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in accounts %}
+        <tr class="{% if not user.is_active %}disabled{% endif %}">
+            <td>{{ user.date_joined|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ user.last_login|date:"d.m.Y H:i:s" }}</td>
+            <td><a href="">{{ user.username }}</a></td>
+            <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+            <td>{{ user.first_name }}&nbsp;{{ user.last_name }}</td>
+            <td>{{ user.is_superuser }}</td>
+            <td>{{ user.is_active }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
