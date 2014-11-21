@@ -1,4 +1,5 @@
 import datetime
+import time
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from questions.models import QuestionSet, Answer
@@ -96,8 +97,8 @@ def show_question(request):
         'testing': testing,
         'question': testing.current_question.question,
         'variants': testing.current_question.question.answer_set.all(),
-        'seconds_left': int(testing.deadline.timestamp()) -
-                        int(timezone.now().timestamp())
+        'seconds_left': int(time.mktime(testing.deadline.timetuple())) -
+                        int(time.mktime(timezone.now().timetuple()))
     }
     return render_to_response('testing/question.html', context,
                               context_instance=RequestContext(request))
@@ -108,8 +109,8 @@ def show_unanswered_questions(request):
     testing = Testing.objects.get(id=testing_id)
     context = {
         'questions': testing.unanswered_questions,
-        'seconds_left': int(testing.deadline.timestamp()) -
-                        int(timezone.now().timestamp())
+        'seconds_left': int(time.mktime(testing.deadline.timetuple())) -
+                        int(time.mktime(timezone.now().timetuple()))
     }
     return render_to_response('testing/unanswered.html', context,
                               context_instance=RequestContext(request))
