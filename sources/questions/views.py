@@ -79,7 +79,7 @@ def edit_question(request, qid):
 def save_question(request, qid):
     question = Question.objects.get(id=qid)
     question.updated = datetime.now()
-    question_form = QuestionForm(request.REQUEST, request.FILES,
+    question_form = QuestionForm(request.REQUEST, files=request.FILES,
         instance=question)
     if question_form.is_valid():
         question_form.save()

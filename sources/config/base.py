@@ -107,6 +107,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = PROJECT_DIR('../static/media/')
+MEDIA_URL = '/media/'
+
 TEMPLATE_DIRS = (
     PROJECT_DIR('templates'),
 )

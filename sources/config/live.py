@@ -12,6 +12,8 @@ DATABASES = {
 MEDIA_ROOT = PROJECT_DIR('../static/media/')
 STATIC_ROOT = PROJECT_DIR('../static/')
 
+MEDIA_URL = '/static/media/'
+
 STATICFILES_DIRS = (
     PROJECT_DIR('static'),
 )

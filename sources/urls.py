@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf.urls.static import static
+import settings
 
 urlpatterns = patterns('',
     # Examples:
@@ -12,4 +14,4 @@ urlpatterns = patterns('',
     url(r'', include('accounts.urls')),
     url(r'', include('questions.urls')),
     url(r'', include('testing.urls')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
