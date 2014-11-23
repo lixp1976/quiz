@@ -21,7 +21,8 @@
         <tr class="{% if not user.is_active %}disabled{% endif %}">
             <td>{{ user.date_joined|date:"d.m.Y H:i:s" }}</td>
             <td>{{ user.last_login|date:"d.m.Y H:i:s" }}</td>
-            <td><a href="">{{ user.username }}</a></td>
+            <td><a href="{% url 'url_edit_account' user.id %}"
+                    >{{ user.username }}</a></td>
             <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
             <td>{{ user.first_name }}&nbsp;{{ user.last_name }}</td>
             <td>{{ user.is_superuser }}</td>

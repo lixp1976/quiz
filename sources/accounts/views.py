@@ -53,3 +53,20 @@ def add_account(request):
     new_user.last_name = last_name
     new_user.save()
     return redirect(list_accounts)
+
+
+def edit_account(request, account_id):
+    context = {
+        'account': User.objects.get(id=account_id)
+    }
+    return render_to_response('accounts/edit.html', context,
+                              context_instance=RequestContext(request))
+
+
+def save_account(request, account_id):
+    return redirect(list_accounts)
+
+
+def reset_password(request, account_id):
+    # может делать только суперпользователь
+    return 'ok'

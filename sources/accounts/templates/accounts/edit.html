@@ -1,0 +1,110 @@
+{% extends 'base_page.html' %}
+
+{% block title %}{{ account.username }}{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        function reset_password(url_reset_password)
+        {
+            $.ajax({
+                url: url_reset_password,
+                method: 'GET',
+                success: function (text) {
+                    if (text == 'ok')
+                        alert('Пароль сброшен');
+                    else
+                        alert(text);
+                },
+                error: function (text) {
+                    alert('Произошла ошибка');
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb" style="border-radius: 0; margin-bottom: 5px">
+    <li><a href="{% url 'url_list_accounts' %}">Аккаунты</a></li>
+    <li class="active">{{ account.username }}</li>
+</ol>
+{% endblock %}
+
+{% block body %}
+
+<div class="well">
+<form class="form-horizontal" role="form" method="POST"
+      action="{% url 'url_save_account' account.id %}">{% csrf_token %}
+    <div class="form-group">
+        <label class="col-sm-1 control-label">ID</label>
+        <div class="col-sm-3">
+            <p class="form-control-static">{{ account.id }}</p>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="username" class="col-sm-1 control-label">Логин</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="username" name="username"
+                placeholder="Логин" value="{{ account.username }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="first_name" class="col-sm-1 control-label">Имя</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="first_name" name="first_name"
+                placeholder="Имя" value="{{ account.first_name }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="last_name" class="col-sm-1 control-label">Фамилия</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="last_name" name="last_name"
+                placeholder="Фамилия" value="{{ account.last_name }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="col-sm-1 control-label">E-mail</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="email" name="email"
+                placeholder="E-mail" value="{{ account.email }}">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-1 control-label">Пароль</label>
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-danger pretty" value="Сбросить пароль"
+                    onclick="reset_password('{% url 'url_reset_password' account.id %}')"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="is_superuser" class="col-sm-1 control-label">Админ</label>
+        <div class="col-sm-3">
+            <input type="checkbox" id="is_superuser" name="is_superuser"
+                {% if account.is_superuser %}checked="checked"{% endif %} value="1" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="is_active" class="col-sm-1 control-label">Активен</label>
+        <div class="col-sm-3">
+            <input type="checkbox" id="is_active" name="is_active"
+                {% if account.is_active %}checked="checked"{% endif %} value="1" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-4">
+            <input type="submit" style="margin-top: 20px"
+                   class="btn btn-primary pretty" value="Сохранить" />
+        </div>
+    </div>
+
+</form>
+</div>
+{% endblock %}
