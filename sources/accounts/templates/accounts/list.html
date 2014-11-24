@@ -31,7 +31,8 @@
             <td>
                 <form method="POST" action="{% url 'url_delete_account' user.id %}">
                     {% csrf_token %}
-                    <input type="submit" class="btn btn-danger" value="Удалить" />
+                    <input type="submit" class="btn btn-danger pretty"
+                           value="Удалить" />
                 </form>
             </td>
         </tr>

@@ -1,1 +1,5 @@
-test
+input.btn.pretty {
+    padding: 4px 6px 4px 6px;
+    margin: 1px;
+    font-size: 12px;
+}
