@@ -1,5 +1,6 @@
 Django==1.7.1
 Pillow==2.6.1
 certifi==14.05.14
+django-smtp-ssl==1.0
 pymongo==2.7.2
 tornado==4.0.2

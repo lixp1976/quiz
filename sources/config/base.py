@@ -8,6 +8,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+    ('Dmitry Dorofeev', 'djudman@ya.ru'),
+)
+
+MANAGERS = ADMINS
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -154,3 +161,13 @@ LOGGING = {
         }
     }
 }
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '' # TODO:
+EMAIL_HOST_PASSWORD = '' # TODO:
+EMAIL_USE_TLS = True
+
+EMAIL_SUBJECT_PREFIX = '[Quiz] '
+SERVER_EMAIL = '' # TODO:
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
