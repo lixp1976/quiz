@@ -42,6 +42,7 @@
                             {{ hidden_field }}
                         {% endfor %}
                     </td>
+                    <td>{{ answer.image }}</td>
                     <td>{{ answer.is_right }}</td>
                     <td>
                         <a href="{% url 'url_remove_answer' answer.instance.id %}"

@@ -84,7 +84,7 @@ def save_question(request, qid):
     if question_form.is_valid():
         question_form.save()
 
-    answers = AnswerFormSet(data=request.REQUEST)
+    answers = AnswerFormSet(data=request.REQUEST, files=request.FILES)
     for form in answers:
         if form.is_valid():
             form.save()
