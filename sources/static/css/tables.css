@@ -35,3 +35,18 @@ table.DataTable tr {
 table.DataTable tr:hover {
     background-color: #fcf8e3;
 }
+
+tr.disabled td {
+    color: #dadada;
+    font-style: italic;
+}
+
+tr.disabled td a:visited {
+    color: #dadada;
+    font-style: italic;
+}
+
+tr.disabled td a:link {
+    color: #dadada;
+    font-style: italic;
+}
