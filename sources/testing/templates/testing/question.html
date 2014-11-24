@@ -12,7 +12,7 @@
             <p class="text-left">{{ question.html_text }}</p>
 
             {% if question.image %}
-                <img src="{{ question.image }}" />
+                <img src="{{ MEDIA_URL}}{{ question.image }}" />
             {% endif %}
 
             <form id="answerForm" method="POST"

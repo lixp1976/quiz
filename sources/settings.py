@@ -8,4 +8,4 @@ if re.match(r'^road404\-dorofeev(\-)?(\d+)?\.local$', hostname):
 elif hostname in ('live'):
     from config.live import *
 else:
-    raise Exception("Can't load settings for host '{0}'".format(hostname))
+    from config.dev import *
