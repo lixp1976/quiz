@@ -1,7 +1,9 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import User
 from django.contrib.auth.views import logout, login
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
+from accounts.forms import AccountForm
 
 __author__ = 'djud'
 
@@ -23,6 +25,7 @@ def logout_user(request):
     return redirect("/")
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def list_accounts(request):
     context = {
         'accounts': User.objects.all()
@@ -31,11 +34,13 @@ def list_accounts(request):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def delete_account(request, account_id):
     User.objects.get(id=account_id).delete()
     return redirect(list_accounts)
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def add_account(request):
     username = request.POST['username']
     first_name = request.POST['first_name']
@@ -55,6 +60,7 @@ def add_account(request):
     return redirect(list_accounts)
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def edit_account(request, account_id):
     context = {
         'account': User.objects.get(id=account_id)
@@ -63,10 +69,15 @@ def edit_account(request, account_id):
                               context_instance=RequestContext(request))
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def save_account(request, account_id):
+    account = User.objects.get(id=account_id)
+    form = AccountForm(request.POST, instance=account)
+    if form.is_valid:
+        form.save()
     return redirect(list_accounts)
 
 
+@user_passes_test(lambda x: x.is_superuser)
 def reset_password(request, account_id):
-    # может делать только суперпользователь
     return 'ok'
