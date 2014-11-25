@@ -21,15 +21,20 @@
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
-  <li class="active">Список тестов</li>
+    {% if user.is_superuser %}
+    <li>
+    <form method="GET" action="{% url 'url_new_qs' %}">
+        <input type="submit" class="btn btn-primary pretty"
+               value="Добавить тест" />
+    </form>
+    </li>
+    {% else %}
+    <li class="active">Список тестов</li>
+    {% endif %}
 </ol>
 {% endblock %}
 
 {% block body %}
-
-    {% if user.is_superuser %}
-        <a href="{% url 'url_new_qs' %}">Добавить тест</a>
-    {% endif %}
 
     {% for form in formset %}
     <div class="panel panel-default" style="margin: 20px">

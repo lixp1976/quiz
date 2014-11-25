@@ -9,7 +9,10 @@
 {% endblock %}
 
 {% block body %}
-    <a href="{% url 'url_new_question' qs.id %}">Добавить вопрос</a>
+    <form method="GET" action="{% url 'url_new_question' qs.id %}">
+        <input type="submit" class="btn btn-primary pretty"
+               value="Добавить вопрос" />
+    </form>
 
     <table class="table">
     {% for question in questions %}
