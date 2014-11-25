@@ -55,4 +55,4 @@ class TestingLog(models.Model):
     testing = models.ForeignKey(Testing)
     datetime = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey(Question)
-    answer = models.ForeignKey(Answer)
+    answer = models.ForeignKey(Answer, null=True)

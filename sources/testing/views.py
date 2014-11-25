@@ -66,7 +66,7 @@ def skip_question(request):
 
 def answer(request):
     answer_id = request.REQUEST.get('answer_id')
-    answer = Answer.objects.get(id=answer_id)
+    answer = Answer.objects.get(id=answer_id) if answer_id else None
     testing_id = request.session.get('testing_id')
     testing = Testing.objects.get(id=testing_id)
 
