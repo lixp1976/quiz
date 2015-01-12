@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import random
 import string
 from django.contrib.auth.decorators import user_passes_test
@@ -53,6 +54,10 @@ def delete_account(request, account_id):
     User.objects.get(id=account_id).delete()
     return redirect(list_accounts)
 
+def delete_user(request, account_id):
+    import os
+    User.objects.get(id=account_id).delete()
+    return redirect(list_accounts)
 
 @user_passes_test(lambda x: x.is_superuser)
 def add_account(request):

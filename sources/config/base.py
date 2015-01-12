@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'frontpages',
     'accounts',
     'questions',
-    'testing'
+    'quiz'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

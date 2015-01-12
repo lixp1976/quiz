@@ -4,8 +4,9 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from questions.models import QuestionSet, Answer
 import random
-from testing.models import TestingQuestion, Testing, TestingLog
+from quiz.models import QuizQuestion, Quiz, QuizLog
 from django.utils import timezone
+from frontpages.views import index as index_view
 
 __author__ = 'djud'
 
@@ -14,7 +15,7 @@ def start_testing(request, qs_id):
     if request.session.get('testing_id'):
         return redirect(show_question)
     question_set = QuestionSet.objects.get(id=qs_id)
-    testing = Testing.objects.create(
+    testing = Quiz.objects.create(
         user=request.user,
         question_set=question_set,
         deadline=timezone.now() +
@@ -27,7 +28,7 @@ def start_testing(request, qs_id):
     next = None
     prev = None
     for index, question in enumerate(questions):
-        q = TestingQuestion.objects.create(
+        q = QuizQuestion.objects.create(
             index=index + 1,
             question=question,
             next=next,
@@ -35,12 +36,14 @@ def start_testing(request, qs_id):
             testing=testing,
         )
         if prev:
-            p = TestingQuestion.objects.get(id=prev.id)
+            p = QuizQuestion.objects.get(id=prev.id)
             p.next = q
             p.save()
         prev = q
 
-    testing.current_question = TestingQuestion\
+    if QuizQuestion.objects.filter(testing=testing).count() == 0:
+        return redirect(index_view)
+    testing.current_question = QuizQuestion\
                                     .objects\
                                     .filter(testing=testing)\
                                     .order_by('index')[:1].get()
@@ -53,7 +56,7 @@ def start_testing(request, qs_id):
 
 def skip_question(request):
     testing_id = request.session['testing_id']
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
     if testing.current_question.is_last and testing.unanswered_questions:
         return redirect(show_unanswered_questions)
 
@@ -68,9 +71,9 @@ def answer(request):
     answer_id = request.REQUEST.get('answer_id')
     answer = Answer.objects.get(id=answer_id) if answer_id else None
     testing_id = request.session.get('testing_id')
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
 
-    TestingLog.objects.create(
+    QuizLog.objects.create(
         testing=testing,
         question=testing.current_question.question,
         answer=answer,
@@ -92,7 +95,7 @@ def answer(request):
 
 def show_question(request):
     testing_id = request.session['testing_id']
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
     context = {
         'testing': testing,
         'question': testing.current_question.question,
@@ -100,26 +103,26 @@ def show_question(request):
         'seconds_left': int(time.mktime(testing.deadline.timetuple())) -
                         int(time.mktime(timezone.now().timetuple()))
     }
-    return render_to_response('testing/question.html', context,
+    return render_to_response('quiz/question.html', context,
                               context_instance=RequestContext(request))
 
 
 def show_unanswered_questions(request):
     testing_id = request.session['testing_id']
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
     context = {
         'questions': testing.unanswered_questions,
         'seconds_left': int(time.mktime(testing.deadline.timetuple())) -
                         int(time.mktime(timezone.now().timetuple()))
     }
-    return render_to_response('testing/unanswered.html', context,
+    return render_to_response('quiz/unanswered.html', context,
                               context_instance=RequestContext(request))
 
 
 def go_to_question(request, question_id):
     testing_id = request.session['testing_id']
-    testing = Testing.objects.get(id=testing_id)
-    testing.current_question = TestingQuestion.objects.get(id=question_id)
+    testing = Quiz.objects.get(id=testing_id)
+    testing.current_question = QuizQuestion.objects.get(id=question_id)
     testing.save()
     return redirect(show_question)
 
@@ -128,15 +131,15 @@ def finish(request):
     testing_id = request.session['testing_id']
     del(request.session['testing_id'])
     del(request.session['total_questions'])
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
     testing.finished = timezone.now()
     return redirect(show_summary, testing_id)
 
 
 def show_summary(request, testing_id):
-    testing = Testing.objects.get(id=testing_id)
+    testing = Quiz.objects.get(id=testing_id)
     context = {
         'testing': testing
     }
-    return render_to_response('testing/summary.html', context,
+    return render_to_response('quiz/summary.html', context,
                               context_instance=RequestContext(request))

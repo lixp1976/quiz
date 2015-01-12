@@ -13,5 +13,5 @@ urlpatterns = patterns('',
     url(r'', include('frontpages.urls')),
     url(r'', include('accounts.urls')),
     url(r'', include('questions.urls')),
-    url(r'', include('testing.urls')),
+    url(r'', include('quiz.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

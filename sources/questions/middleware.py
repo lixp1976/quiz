@@ -1,8 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils import timezone
-from testing.models import Testing
-from testing.views import finish, show_question, answer, skip_question, \
+from quiz.models import Quiz
+from quiz.views import finish, show_question, answer, skip_question, \
     show_unanswered_questions, go_to_question, show_summary
 
 __author__ = 'djud'
@@ -14,7 +14,7 @@ class CheckTimeMiddleware():
         testing_id = request.session.get('testing_id')
         if not testing_id:
             return None
-        testing = Testing.objects.get(id=testing_id)
+        testing = Quiz.objects.get(id=testing_id)
         if timezone.now() >= testing.deadline:
             finish(request)
             return redirect(show_summary, testing_id)
@@ -33,7 +33,7 @@ class QuestionRedirectMiddleware():
         ]:
             return None
         if request.session.get('testing_id'):
-            testing = Testing.objects.get(id=request.session.get(
+            testing = Quiz.objects.get(id=request.session.get(
                 'testing_id'))
             if request.path == reverse(go_to_question,
                                        testing.current_question.id):
