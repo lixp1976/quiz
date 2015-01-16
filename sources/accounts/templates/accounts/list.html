@@ -1,11 +1,19 @@
 {% extends 'base_page.html' %}
 
+{% block title %}Аккаунты{% endblock %}
+
 {% block body %}
-<input type="button" class="btn btn-primary pretty" data-toggle="modal"
-       data-target="#new_account_modal" value="Добавить" />
+
+<span class="glyphicon glyphicon-plus-sign"
+      style="color: green; padding-left: 7px; padding-top: 10px"
+      aria-hidden="true"></span>
+<a href="#" data-toggle="modal"
+       data-target="#new_account_modal">Добавить</a>
+<hr style="margin: 0; padding: 0 0 10px 0;" />
+
 {% include "accounts/new.html" %}
 
-<table class="DataTable">
+<table class="table table-hover table-condensed">
     <thead>
         <tr>
             <th style="width: 180px;">Дата регистрации</th>
@@ -29,7 +37,7 @@
             <td>{{ user.first_name }}&nbsp;{{ user.last_name }}</td>
             <td>{{ user.is_superuser }}</td>
             <td>{{ user.is_active }}</td>
-            <td>
+            <td style="text-align: right">
                 <form method="POST" action="{% url 'url_delete_account' user.id %}">
                     {% csrf_token %}
                     <input type="submit" class="btn btn-danger pretty"
