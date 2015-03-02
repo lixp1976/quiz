@@ -1,0 +1,41 @@
+{% extends 'base_page.html' %}
+{% load quiz_filters %}
+
+{% block title %}История {{ question_set.title }}{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Список тестов</a></li>
+  <li class="active">Тест "{{ question_set.title }}"</li>
+</ol>
+{% endblock %}
+
+{% block body %}
+
+    <table class="table table-striped">
+        <thead>
+            <th>ID</th>
+            <th>Время начала</th>
+            <th>Время окончания</th>
+            <th>Затрачено времени на тест</th>
+            <th>Пользователь</th>
+            <th></th>
+        </thead>
+    {% for entry in quiz_set %}
+        <tr>
+            <td>{{ entry.id }}</td>
+            <td>{{ entry.started|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ entry.finished|date:"d.m.Y H:i:s" }}</td>
+            <td>{{ entry|quiz_duration }}</td>
+            <td>{{ entry.user.first_name }} {{ entry.user.last_name }}
+                ({{ entry.user.username }})</td>
+            <td>
+                <a href="{% url 'url_quiz_log' entry.id %}">
+                    Посмотреть ответы
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

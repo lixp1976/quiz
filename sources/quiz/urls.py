@@ -13,4 +13,6 @@ urlpatterns = patterns('quiz.views',
         name='url_go_question'),
     url('^unanswered/$', 'show_unanswered_questions'),
     url('^summary/(?P<testing_id>\d+)/$', 'show_summary', name='url_summary'),
+    url('^history/(?P<question_set_id>\d+)/$', 'get_quiz_history', name='url_history'),
+    url('^quiz/(?P<quiz_id>\d+)/log/$', 'get_quiz_log', name='url_quiz_log'),
 )

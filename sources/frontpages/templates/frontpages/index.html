@@ -40,21 +40,41 @@
     <div class="panel panel-default" style="margin: 20px">
         <div class="panel-heading">
             <h3 class="panel-title">
-                Тест "{{ form.instance.title }}"
                 {% if user.is_superuser %}
-                    <a class="smallLink"
-                       href="{% url 'url_edit_qs' form.instance.pk %}">[Изменить]</a>
-                    <a class="smallLink"
-                       href="javascript:deleteQuestionSet('{% url 'url_remove_qs' form.instance.pk %}')">[Удалить]</a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a class="smallLink" href="{% url 'url_list_question' form.instance.pk %}">[Редактировать вопросы]</a>
+                    <div class="dropdown">
+                        <a id="dLabel" data-target="#"
+                           href="#" data-toggle="dropdown"
+                           aria-haspopup="true" role="button"
+                           aria-expanded="false">
+                            Тест "{{ form.instance.title }}"
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li>
+                                <a href="{% url 'url_edit_qs' form.instance.pk %}">Изменить</a>
+                            </li>
+                            <li>
+                                <a href="javascript:deleteQuestionSet('{% url 'url_remove_qs' form.instance.pk %}')">Удалить</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'url_list_question' form.instance.pk %}">Редактировать вопросы</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'url_history' form.instance.pk %}">История</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    Тест "{{ form.instance.title }}"
                 {% endif %}
             </h3>
         </div>
         <div class="panel-body">
             {% if form.instance.description %}
-            <b>Описание:</b><br/>
-            {{ form.instance.description }}
+                <b>Описание:</b><br/>
+                {{ form.instance.description }}
             {% endif %}
 
             <br/>
@@ -68,10 +88,12 @@
             {% if request.session.testing_id %}
                 У вас есть незавершенный тест.
                 <a href="{% url 'url_show_question' %}"
-                   style="font-weight: bold;">> Возобновить тест <</a>
+                   class="btn btn-warning"
+                   style="text-decoration: none;">Возобновить тест</a>
             {% else %}
                 <a href="{% url 'url_start_testing' form.instance.id %}"
-                   style="font-weight: bold;">> Начать тест <</a>
+                   class="btn btn-success"
+                   style="text-decoration: none;">Начать тест</a>
             {% endif %}
         </div>
     </div>

@@ -52,7 +52,9 @@ class Quiz(models.Model):
 
 
 class QuizLog(models.Model):
-    testing = models.ForeignKey(Quiz)
-    datetime = models.DateTimeField(auto_now_add=True)
+    question_set = models.ForeignKey(QuestionSet)
+    quiz = models.ForeignKey(Quiz)
     question = models.ForeignKey(Question)
-    answer = models.ForeignKey(Answer, null=True)
+    answer = models.ForeignKey(Answer, null=True, default=None)
+    question_dt = models.DateTimeField()
+    answer_dt = models.DateTimeField(null=True, default=None)

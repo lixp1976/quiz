@@ -35,6 +35,9 @@ class Question(models.Model):
     def many_rights(self):
         return len([x for x in self.answer_set.all() if x.is_right]) > 1
 
+    def __str__(self):
+        return self.html_text
+
 
 class Answer(models.Model):
     html_text = models.TextField(default='')
@@ -42,3 +45,6 @@ class Answer(models.Model):
     is_right = models.BooleanField(default=False)
     question = models.ForeignKey(Question, null=False, blank=False)
     updated = models.DateTimeField(null=True, blank=False, default=None)
+
+    def __str__(self):
+        return self.html_text

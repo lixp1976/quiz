@@ -1,0 +1,37 @@
+{% extends 'base_page.html' %}
+
+{% block title %}История {{ question_set.title }}{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Когда задан вопрос</th>
+                <th>Вопрос</th>
+                <th>Ответ</th>
+                <th>Когда был дан ответ</th>
+            </tr>
+        </thead>
+    {% for entry in quiz_logs %}
+        <tr>
+            <td>
+                {{ entry.question_dt|date:"d.m.Y H:i:s" }}
+            </td>
+            <td>
+                {{ entry.question }}
+            </td>
+            <td>
+                {{ entry.answer }}
+                {% if entry.answer.is_right %}
+                    (правильно)
+                {% else %}
+                    (неправильно)
+                {% endif %}
+            </td>
+            <td>
+                {{ entry.answer_dt|date:"d.m.Y H:i:s" }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
