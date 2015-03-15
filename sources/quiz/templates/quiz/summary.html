@@ -6,6 +6,8 @@
         Тестирование завершено
     </div>
     <div class="panel-body">
+        <b>{{ quiz.num_right_answers }}</b> правильных ответов из {{ quiz.num_questions }}
+        ({{ quiz.percent_right_answers }}%)
         <form method="GET" action="{% url 'url_index' %}">
         <p style="text-align: center">
         <input type="submit" class="btn btn-success" value="Oк"

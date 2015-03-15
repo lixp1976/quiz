@@ -11,3 +11,11 @@ a {
 .navbar {
     margin-bottom: 0;
 }
+
+ol.breadcrumb {
+    margin-bottom: 1px;
+}
+
+hr {
+    margin-bottom: 1px;
+}

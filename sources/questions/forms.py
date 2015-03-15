@@ -13,13 +13,18 @@ class QuestionSetForm(forms.ModelForm):
         model = QuestionSet
         fields = ['title', 'max_time', 'max_answers', 'description']
 
-    title = forms.CharField(label='Название')
-    max_time = forms.IntegerField(label='Время, отведенное на тест')
-    max_answers = forms.IntegerField(label='Сколько вариантов ответов '
-                                           'отображать')
+    title = forms.CharField(label='Название',
+                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    max_time = forms.IntegerField(label='Время, отведенное на тест (в минутах)',
+                widget=forms.TextInput(attrs={'class': 'form-control'}))
+    max_answers = forms.IntegerField(label='Сколько вариантов ответов отображать',
+                widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(label='Описание',
                                   widget=forms.Textarea(
-                                      {'cols': '50', 'rows': '4'}
+                                    {
+                                        'cols': '50', 'rows': '4',
+                                        'class': 'form-control'
+                                    }
                                   ))
 
 

@@ -80,7 +80,7 @@ def save_question(request, qid):
     question = Question.objects.get(id=qid)
     question.updated = datetime.now()
     question_form = QuestionForm(request.REQUEST, files=request.FILES,
-        instance=question)
+                                 instance=question)
     if question_form.is_valid():
         question_form.save()
 

@@ -50,6 +50,21 @@ class Quiz(models.Model):
         return list(self.quizquestion_set.all().filter(
             testing=self, answered=False).order_by('index'))
 
+    @property
+    def num_right_answers(self):
+        right = len([log.answer for log in QuizLog.objects.filter(quiz=self)
+                     if log.answer and log.answer.is_right])
+        return right or 0
+
+    @property
+    def num_questions(self):
+        return Question.objects.filter(question_set=self.question_set).count()
+
+    @property
+    def percent_right_answers(self):
+        return int(self.num_right_answers * 100 / self.num_questions)
+
+
 
 class QuizLog(models.Model):
     question_set = models.ForeignKey(QuestionSet)

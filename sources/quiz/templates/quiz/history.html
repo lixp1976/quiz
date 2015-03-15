@@ -15,20 +15,24 @@
     <table class="table table-striped">
         <thead>
             <th>ID</th>
-            <th>Время начала</th>
-            <th>Время окончания</th>
-            <th>Затрачено времени на тест</th>
             <th>Пользователь</th>
+            <th>Затрачено времени на тест</th>
+            <th>Правильных ответов</th>
+            <th>%</th>
             <th></th>
         </thead>
     {% for entry in quiz_set %}
         <tr>
             <td>{{ entry.id }}</td>
-            <td>{{ entry.started|date:"d.m.Y H:i:s" }}</td>
-            <td>{{ entry.finished|date:"d.m.Y H:i:s" }}</td>
-            <td>{{ entry|quiz_duration }}</td>
             <td>{{ entry.user.first_name }} {{ entry.user.last_name }}
                 ({{ entry.user.username }})</td>
+            <td>{{ entry|quiz_duration }}</td>
+            <td>
+                {{ entry.num_right_answers }} из {{ entry.num_questions }}
+            </td>
+            <td>
+                {{ entry.percent_right_answers }}%
+            </td>
             <td>
                 <a href="{% url 'url_quiz_log' entry.id %}">
                     Посмотреть ответы

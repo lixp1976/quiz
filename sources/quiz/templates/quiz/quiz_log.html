@@ -2,6 +2,32 @@
 
 {% block title %}История {{ question_set.title }}{% endblock %}
 
+{% block css %}
+    <style>
+        table.table tr.red {
+            background-color: #ff3333;
+            color: white;
+            /*font-weight: bold;*/
+        }
+
+        table.table tr.green {
+            background-color: #55ff55;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+  <li><a href="/">Список тестов</a></li>
+  <li>
+  <a href="{% url 'url_history' quiz.question_set.id %}">
+      Тест "{{ quiz.question_set.title }}"
+  </a>
+  </li>
+  <li class="active">Ответы</li>
+</ol>
+{% endblock %}
+
 {% block body %}
     <table class="table">
         <thead>
@@ -13,7 +39,7 @@
             </tr>
         </thead>
     {% for entry in quiz_logs %}
-        <tr>
+        <tr class="{% if entry.answer.is_right %}green{% else %}red{% endif %}">
             <td>
                 {{ entry.question_dt|date:"d.m.Y H:i:s" }}
             </td>

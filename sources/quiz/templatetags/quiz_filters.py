@@ -5,6 +5,7 @@ __author__ = 'djud'
 
 register = template.Library()
 
+
 @register.filter
 def quiz_duration(quiz_object):
     def timestamp(dt):
@@ -14,10 +15,12 @@ def quiz_duration(quiz_object):
         timestamp(quiz_object.started))
 
 
+@register.filter
 def human_duration(seconds):
     minutes = 0
     hours = 0
     days = 0
+    seconds = int(seconds)
     if seconds >= 60:
         minutes = int(seconds / 60)
         seconds -= minutes * 60

@@ -148,7 +148,7 @@ def finish(request):
 def show_summary(request, testing_id):
     testing = Quiz.objects.get(id=testing_id)
     context = {
-        'testing': testing
+        'quiz': testing
     }
     return render_to_response('quiz/summary.html', context,
                               context_instance=RequestContext(request))
@@ -156,7 +156,7 @@ def show_summary(request, testing_id):
 
 def get_quiz_history(request, question_set_id):
     quiz_logs = QuizLog.objects.filter(question_set_id=question_set_id)
-    quiz_set = Quiz.objects.all().order_by('-started')
+    quiz_set = Quiz.objects.filter(question_set_id=question_set_id).order_by('-started')
     context = {
         'question_set': QuestionSet.objects.get(id=question_set_id),
         'history': quiz_logs,
@@ -167,9 +167,11 @@ def get_quiz_history(request, question_set_id):
 
 
 def get_quiz_log(request, quiz_id):
+    quiz = Quiz.objects.get(id=quiz_id)
     quiz_logs = QuizLog.objects.filter(quiz_id=quiz_id)
     context = {
-        'quiz_logs': quiz_logs
+        'quiz_logs': quiz_logs,
+        'quiz': quiz
     }
     return render_to_response('quiz/quiz_log.html', context,
                               context_instance=RequestContext(request))

@@ -1,4 +1,5 @@
 {% extends 'base_page.html' %}
+{% load quiz_filters %}
 
 {% block css %}
     <style type="text/css">
@@ -19,25 +20,10 @@
     </script>
 {% endblock %}
 
-{% block breadcrumbs %}
-<ol class="breadcrumb">
-    {% if user.is_superuser %}
-    <li>
-    <form method="GET" action="{% url 'url_new_qs' %}">
-        <input type="submit" class="btn btn-primary pretty"
-               value="Добавить тест" />
-    </form>
-    </li>
-    {% else %}
-    <li class="active">Список тестов</li>
-    {% endif %}
-</ol>
-{% endblock %}
-
 {% block body %}
 
     {% for form in formset %}
-    <div class="panel panel-default" style="margin: 20px">
+    <div class="panel panel-default" style="margin: 20px auto; width: 700px">
         <div class="panel-heading">
             <h3 class="panel-title">
                 {% if user.is_superuser %}
@@ -79,7 +65,7 @@
 
             <br/>
             <br/>
-            <b>Время на прохождение:&nbsp;</b>{{ form.instance.max_time }}
+            <b>Время на прохождение:&nbsp;</b>{{ form.instance.max_time|human_duration }}
             <br />
             <b>Кол-во вопросов:&nbsp;</b>{{ form.instance.question_set.all|length }}
 

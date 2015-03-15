@@ -9,12 +9,21 @@
 {% endblock %}
 
 {% block body %}
-    <form method="GET" action="{% url 'url_new_question' qs.id %}">
-        <input type="submit" class="btn btn-primary pretty"
-               value="Добавить вопрос" />
-    </form>
+    <span class="glyphicon glyphicon-plus-sign"
+          style="color: green; padding-left: 7px; padding-top: 10px"
+          aria-hidden="true"></span>
+    <a href="{% url 'url_new_question' qs.id %}">Добавить</a>
+    <hr style="margin: 0; padding: 0 0 10px 0;" />
 
     <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Вопрос</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
     {% for question in questions %}
         <tr>
             <td>
@@ -25,9 +34,12 @@
             </td>
             <td>{{ question.html_text }}</td>
             <td>{{ question.updated }}</td>
-            <td>
-                <a href="{% url 'url_remove_question' question.id %}"
-                   class="btn btn-danger">Удалить</a>
+            <td style="text-align: right">
+                <form action="{% url 'url_remove_question' question.id %}"
+                      method="POST">{% csrf_token %}
+                    <input type="submit" class="btn btn-danger pretty"
+                            value="Удалить" />
+                </form>
             </td>
         </tr>
     {% endfor %}
