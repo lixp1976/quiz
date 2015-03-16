@@ -12,24 +12,24 @@
 * Создание наборов вопросов (тестов)
 
 
-Установка
+Installing
 =========
 
-* Установить pip (http://pip.readthedocs.org/en/latest/installing.html)
-* Установить зависимости
+* Install pip (http://pip.readthedocs.org/en/latest/installing.html)
+* Install requirements
 ```
 pip install -r requirements.txt
 ```
-* Перейти в папку sources
-* Инициализировать БД
+* $ cd sources
+* Initialize database
 ```
 $ ./manage.py syncdb
 ```
-* Запустить
+* Run
 ```
 $ ./manage.py runserver
 ```
-* Открыть браузер и вбить туда
+* Open browser and go to
 ```
 http://localhost:8000
 ```
