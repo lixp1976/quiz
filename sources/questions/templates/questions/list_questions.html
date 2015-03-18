@@ -18,9 +18,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th></th>
-                <th>Вопрос</th>
-                <th></th>
+                <th style="width: 30px;"></th>
+                <th style="text-align: left">Вопрос</th>
                 <th></th>
             </tr>
         </thead>
@@ -28,12 +27,13 @@
         <tr>
             <td>
                 <a href="{% url 'url_edit_question' question.id %}"
-                   style="font-size: x-small;">
-                    <b>[[Редактировать]]</b>
+                   class="btn btn-primary"
+                   style="font-size: small;">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Редактировать
                 </a>
             </td>
-            <td>{{ question.html_text }}</td>
-            <td>{{ question.updated }}</td>
+            <td style="text-align: left">{{ question.html_text }}</td>
             <td style="text-align: right">
                 <form action="{% url 'url_remove_question' question.id %}"
                       method="POST">{% csrf_token %}

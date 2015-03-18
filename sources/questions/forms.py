@@ -39,9 +39,12 @@ class QuestionForm(forms.ModelForm):
 
     html_text = forms.CharField(label='Текст вопроса',
                                 widget=forms.Textarea(
-                                    {'cols': '50', 'rows': '4'}
+                                    {
+                                        'cols': '50', 'rows': '4',
+                                        'class': 'form-control'
+                                    }
                                 ))
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(label='Картинка', required=False)
 
 QuestionFormSet = modelformset_factory(Question, QuestionForm, extra=0)
 
