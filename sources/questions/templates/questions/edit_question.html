@@ -36,14 +36,28 @@
         {{ form.image }}
     </div>
 
-   <h4 class="panel-title" style="margin-top: 20px;">Варианты ответов</h4>
-   <hr style="margin: 0; padding: 0 0 10px 0;" />
-    <a href="{% url 'url_add_answer' form.instance.id %}">
-        Добавить вариант
-    </a>
-    <table class="table">
+    <h4 class="panel-title" style="margin-top: 20px;">Варианты ответов
+        <div style="position: relative; float: right; text-align: right">
+        <a href="{% url 'url_add_answer' form.instance.id %}" style="text-align: right">
+            <span class="glyphicon glyphicon-plus-sign"
+                style="color: green" aria-hidden="true"></span>Добавить
+        </a>
+       </div>
+    </h4>
+    <hr style="margin: 0; padding: 0 0 10px 0;" />
+    <table class="table" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Правильный?</th>
+                <th>Текст</th>
+                <th>Картинка</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
     {% for answer in answers %}
         <tr>
+            <td>{{ answer.is_right }}</td>
             <td>
                 {{ answer.html_text }}
                 {% for hidden_field in answer.hidden_fields %}
@@ -51,13 +65,13 @@
                 {% endfor %}
             </td>
             <td>{{ answer.image }}</td>
-            <td>{{ answer.is_right }}</td>
             <td>
                 <a href="{% url 'url_remove_answer' answer.instance.id %}"
                    class="btn btn-danger">Удалить</a>
             </td>
         </tr>
     {% endfor %}
+        </tbody>
     </table>
     {{ answers.management_form }}
 

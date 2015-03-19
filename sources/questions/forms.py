@@ -57,7 +57,7 @@ class AnswerForm(forms.ModelForm):
 
     html_text = forms.CharField(label='Текст ответа',
                                 widget=forms.Textarea(
-                                    {'cols': '50', 'rows': '4'}
+                                    {'cols': '40', 'rows': '4'}
                                 ))
     image = forms.ImageField(label='Картинка', required=False)
     is_right = forms.BooleanField(label='Это правильный вариант',
