@@ -35,16 +35,22 @@
         {{ form.image.label_tag }}
         {{ form.image }}
     </div>
+    <div style="width: 100%; text-align: center">
+        <input class="btn btn-primary pretty" type="submit" value="Сохранить" />
+    </div>
+</form>
+    </div>
+</div>
 
-    <h4 class="panel-title" style="margin-top: 20px;">Варианты ответов
-        <div style="position: relative; float: right; text-align: right">
+<div class="panel panel-default" style="margin: 20px auto; width: 800px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Варианты ответов</h3>
+    </div>
+    <div class="panel-body">
         <a href="{% url 'url_add_answer' form.instance.id %}" style="text-align: right">
             <span class="glyphicon glyphicon-plus-sign"
                 style="color: green" aria-hidden="true"></span>Добавить
         </a>
-       </div>
-    </h4>
-    <hr style="margin: 0; padding: 0 0 10px 0;" />
     <table class="table" style="width: 100%">
         <thead>
             <tr>
@@ -77,9 +83,6 @@
 
     <input type="hidden" name="qs_id" value="{{ qs.pk }}" />
 
-    <div style="width: 100%; text-align: center">
-        <input class="btn btn-primary pretty" type="submit" value="Сохранить" />
-    </div>
 
 </form>
     </div>

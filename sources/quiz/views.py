@@ -28,18 +28,19 @@ def start_testing(request, qs_id):
     next = None
     prev = None
     for index, question in enumerate(questions):
-        q = QuizQuestion.objects.create(
-            index=index + 1,
-            question=question,
-            next=next,
-            previous=prev,
-            testing=quiz,
-        )
-        if prev:
-            p = QuizQuestion.objects.get(id=prev.id)
-            p.next = q
-            p.save()
-        prev = q
+        if question.image or len(question.html_text) > 0:
+            q = QuizQuestion.objects.create(
+                index=index + 1,
+                question=question,
+                next=next,
+                previous=prev,
+                testing=quiz,
+            )
+            if prev:
+                p = QuizQuestion.objects.get(id=prev.id)
+                p.next = q
+                p.save()
+            prev = q
 
     if QuizQuestion.objects.filter(testing=quiz).count() == 0:
         return redirect(index_view)
